@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    /**
+    use Notifiable;
+
+    // protected $guard = 'cliente';
+     /**
      * The attributes that are mass assignable.
      *
      * @var array

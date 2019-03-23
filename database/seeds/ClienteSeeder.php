@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Cliente;
 
-class UserSeeder extends Seeder
+class ClienteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,12 +12,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        factory(Cliente::class)->create([
             'dni' => '26371828',
             'name' => 'Jeremy',
             'email' => 'jmra0611@gmail.com',
             'password' => bcrypt('123')
         ]);
-        factory(User::class,10)->create();
+        factory(Cliente::class,10)->create();    
     }
 }

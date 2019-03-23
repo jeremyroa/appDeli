@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Cliente;
 
 class RegisterController extends Controller
 {
@@ -38,6 +39,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:cliente');
     }
 
     /**
@@ -68,5 +70,19 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    protected function createCliente(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $cliente = Cliente::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/cliente');
+    }
+    public function showClienteRegisterForm()
+    {
+        return view('auth.register', ['url' => 'cliente']);
     }
 }

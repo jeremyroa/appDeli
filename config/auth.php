@@ -50,7 +50,7 @@ return [
         ],
         'cliente' => [
             'driver' => 'session',
-            'provider' => 'cliente',
+            'provider' => 'clientes',
         ]
     ],
 
@@ -76,8 +76,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'cliente' => 'eloquent',
-        'model' => Cliente::class,
+        'clientes' => [
+            'driver' => 'eloquent',
+            'model' => Cliente::class,
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

@@ -21,3 +21,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
+
+Route::get('/login/cliente', 'Auth\LoginController@showClienteLoginForm');
+Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm');
+
+Route::post('/login/cliente', 'Auth\LoginController@clienteLogin');
+Route::post('/register/cliente', 'Auth\RegisterController@createCliente');
+
+Route::view('/cliente', 'cliente');
