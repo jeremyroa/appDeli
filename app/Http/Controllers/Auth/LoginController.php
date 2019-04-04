@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use App\Cliente;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -21,7 +22,6 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
@@ -36,8 +36,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
         $this->middleware('guest:cliente')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
     public function showClienteLoginForm()
     {
@@ -46,13 +46,13 @@ class LoginController extends Controller
 
     public function clienteLogin(Request $request)
     {
+
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required'
         ]);
-
-        if ($this->guard('cliente')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
+        // dd(Auth::guard('cliente'));
+        if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             return redirect()->intended('/cliente');
         }
         return back()->withInput($request->only('email', 'remember'));

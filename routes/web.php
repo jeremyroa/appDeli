@@ -22,10 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
 
-Route::get('/login/cliente', 'Auth\LoginController@showClienteLoginForm');
-Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm');
+Route::get('/login/cliente', 'Auth\LoginController@showClienteLoginForm')->middleware('guard:cliente');
+Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm')->middleware('guard:cliente');
 
-Route::post('/login/cliente', 'Auth\LoginController@clienteLogin');
-Route::post('/register/cliente', 'Auth\RegisterController@createCliente');
+Route::post('/login/cliente', 'ClienteController@index')->middleware('guard:cliente');
+// Route::post('/login/cliente', 'Auth\LoginController@clienteLogin')->middleware("");
+Route::post('/register/cliente', 'ClienteController@store');
 
-Route::view('/cliente', 'cliente');
+Route::view('/cliente', 'cliente')->middleware('guard:cliente');

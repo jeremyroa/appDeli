@@ -9,7 +9,7 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    Hi boss!
+                    {{Auth::user()->name}}
                 </div>
             </div>
         </div>

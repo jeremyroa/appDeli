@@ -5,24 +5,21 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class setGuard
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($guard == "cliente" && Auth::guard($guard)->check()) {
-            return redirect('/cliente');
-        }
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
-        }
+        if($guard) Auth::shouldUse($guard);
+
+        // dd(Auth::getDefaultDriver());  //as expected, outputs $guard if set, 'web' otherwise
+
         return $next($request);
     }
 }

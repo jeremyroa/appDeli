@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     {
         factory(User::class)->create([
             'dni' => '26371828',
-            'name' => 'Jeremy',
+            'name' => 'Hi',
             'email' => 'jmra0611@gmail.com',
             'password' => bcrypt('123')
         ]);

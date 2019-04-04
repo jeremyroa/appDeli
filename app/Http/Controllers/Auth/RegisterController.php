@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use App\Cliente;
+
 
 class RegisterController extends Controller
 {
@@ -50,10 +52,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:clientes'],
+            'password' => ['required', 'string', 'min:2', 'confirmed'],
+            'dni' => 'required|unique:clientes|min:8|numeric|string',
+            'address' => 'max:255|required|string',
+            'phone' => 'required|min:10|numeric|string',
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string|max:255',
         ]);
     }
 
@@ -68,17 +77,25 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
     }
     protected function createCliente(Request $request)
     {
+        dd('entor');
         $this->validator($request->all())->validate();
-        $cliente = Cliente::create([
+        $user = Cliente::create([
+            'dni' => $request['dni'],
             'name' => $request['name'],
+            'last_name' => $request['last_name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'address' => $request['address'],
+            'phone' => $request['phone'],
+            'question' => $request['question'],
+            'answer' => $request['answer'],
         ]);
+        
         return redirect()->intended('login/cliente');
     }
     public function showClienteRegisterForm()
