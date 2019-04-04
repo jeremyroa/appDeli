@@ -147,7 +147,23 @@
                                 @endif
                             </div>
                         </div>
+                        @isset($url)
+                        @else
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input id="is_admin" type="checkbox" class="form-check-input{{ $errors->has('is_admin') ? ' is-invalid' : '' }}" name="is_admin">
+                                    <label for="is_admin" class="text-md-right">{{ __('Is_admin') }}</label>
 
+                                    @if ($errors->has('is_admin'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('is_admin') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endisset
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -65,6 +65,21 @@ class RegisterController extends Controller
             'answer' => 'required|string|max:255',
         ]);
     }
+    protected function validatorUser(array $data)
+    {
+
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:2', 'confirmed'],
+            'dni' => 'required|unique:users|min:8|numeric|string',
+            'address' => 'max:255|required|string',
+            'phone' => 'required|min:10|numeric|string',
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string|max:255',
+        ]);
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -74,15 +89,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $this->validatorUser($data)->validate();
         return User::create([
+            'dni' => $data['dni'],
             'name' => $data['name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'question' => $data['question'],
+            'answer' => $data['answer'],
+            'is_admin' => $data['is_admin'] == "on" ? true : null,
         ]);
     }
     protected function createCliente(Request $request)
     {
-        dd('entor');
         $this->validator($request->all())->validate();
         $user = Cliente::create([
             'dni' => $request['dni'],
