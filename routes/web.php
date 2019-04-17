@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ComidaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +17,23 @@ Route::get('/', function () {
 });
 // Route::get('comida/', 'ComidaController@index');
 
+Route::get('/select-login', function () {
+    return view('select-login-register');
+});
+Route::get('/select-register', function () {
+    return view('select-login-register');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
 
-Route::get('/login/cliente', 'Auth\LoginController@showClienteLoginForm')->middleware('guard:cliente');
-Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm')->middleware('guard:cliente');
+Route::get('/login/cliente', 'Auth\LoginController@showClienteLoginForm')->middleware('guard:cliente')->name('login.cliente');
+Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm')->middleware('guard:cliente')->name('register.cliente');
 
 Route::post('/login/cliente', 'ClienteController@index')->middleware('guard:cliente');
-// Route::post('/login/cliente', 'Auth\LoginController@clienteLogin')->middleware("");
 Route::post('/register/cliente', 'ClienteController@store');
 
-Route::view('/cliente', 'cliente')->middleware('guard:cliente');
+Route::view('/cliente', 'cliente', ['comidas' => ComidaController::index()])->middleware('guard:cliente');

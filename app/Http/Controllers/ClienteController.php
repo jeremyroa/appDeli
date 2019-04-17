@@ -26,8 +26,8 @@ class ClienteController extends Controller
     public function index(Request $request)
     {
         $user = Cliente::where('email',$request['email'])->first();
+
         if (Auth::guard('cliente')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            // dd();
             return redirect()->intended('/cliente');
         }    
         
@@ -35,13 +35,14 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function bienvenido()
     {
-        //
+        $comidas = ComidaController::index();
+        return view('cliente', ['comidas' => $comidas]);
     }
 
     /**

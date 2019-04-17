@@ -12,9 +12,9 @@ class ComidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
-        // return Comida::all();
+        return Comida::all();
     }
 
     /**

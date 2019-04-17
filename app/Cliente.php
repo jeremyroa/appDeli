@@ -28,4 +28,9 @@ class Cliente extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function pedidos()
+    {
+        return $this->belongsTo(Pedido::class);
+    }
+    
 }

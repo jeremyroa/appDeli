@@ -15,9 +15,17 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('dni_cliente',8);
+            $table->foreign('dni_cliente')->references('dni')->on('clientes');
+            $table->string('dni_user',8);
+            $table->foreign('dni_user')->references('dni')->on('users');
             $table->float('price');
-            $table->string('category');
+            $table->date('date');
+            $table->boolean('is_deliver')->nullable();
+            $table->json('id_comidas');
+            $id_comida = DB::connection()->getQueryGrammar()->wrap('id_comidas->id_comida');
+            $table->unsignedBigInteger('id_comida')->storedAs($id_comida);
+            $table->foreign('id_comida')->references('id')->on('comidas');
             $table->timestamps();
         });
     }
@@ -30,5 +38,7 @@ class CreatePedidosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('pedidos');
+        Schema::dropForeign(['dni_cliente']);
+        Schema::dropForeign(['dni_user']);
     }
 }

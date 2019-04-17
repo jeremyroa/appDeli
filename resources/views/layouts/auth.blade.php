@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel bg-danger">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Trastevere') }}
@@ -75,6 +75,22 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <footer class="bg-dark text-white mt-5 py-4 text-center">
+            <div class="container mt-3">
+              <h4 class="">HORARIOS</h4>
+              <div class="row my-4">
+                <p class="col-lg-4">Tarde 1:30 pm - 4:00pm</p>
+                <p class="col-lg-4">Noche 7:30 pm - 12:00am <br> Feriados 7:30pm - 1:30am</p>
+                <p class="col-lg-4">Abierto todos los días de la semana</p>
+              </div>
+              <h2 class="font-weight-bold text-success">...Y LLÉVATE LA COMIDA A CASA SI QUIERES!!!</h2>
+              <div class="my-5">
+                <p>Contactanos al 0274-8481548. Siguenos en nuestras redes sociales </p>
+              </div>
+              <p class="text-right text-white-50">Designed by Jeremy Roa</p>
+            </div>
+        
+          </footer>
     </div>
 </body>
 </html>
