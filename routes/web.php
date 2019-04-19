@@ -43,3 +43,6 @@ Route::view('/cliente', 'cliente', ['comidas' => ComidaController::index()])->mi
 Route::put('pedido/{id}','PedidoController@update')->name('pedido.update');
 
 Route::delete('comida/{id}','ComidaController@destroy')->name('comida.destroy');
+
+Route::get('imprimir', 'GeneratorPDF@imprimir')->name("pdf");
+

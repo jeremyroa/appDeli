@@ -118,6 +118,7 @@
                                                         @endforeach
                                                     </div>
                                                     <p class="text-right mt-4 mr-2">Total<span class="text-right font-weight-bold"> {{$pedido->price}}$ </span></p>
+                                                    <a href="{{route('pdf',['id' => $pedido->id])}}" download  class="btn btn-danger">Generar PDF</a>
                                                 </div>
                                             </div>
                                         </div>
