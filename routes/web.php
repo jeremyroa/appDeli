@@ -35,5 +35,8 @@ Route::get('/register/cliente', 'Auth\RegisterController@showClienteRegisterForm
 
 Route::post('/login/cliente', 'ClienteController@index')->middleware('guard:cliente');
 Route::post('/register/cliente', 'ClienteController@store');
+Route::post('/pedido/crear', 'PedidoController@store')->name('pedido.crear');
 
 Route::view('/cliente', 'cliente', ['comidas' => ComidaController::index()])->middleware('guard:cliente');
+
+Route::put('pedido/{id}','PedidoController@update')->name('pedido.update');

@@ -17,10 +17,9 @@ class CreatePedidosTable extends Migration
             $table->bigIncrements('id');
             $table->string('dni_cliente',8);
             $table->foreign('dni_cliente')->references('dni')->on('clientes');
-            $table->string('dni_user',8);
-            $table->foreign('dni_user')->references('dni')->on('users');
+            // $table->string('dni_user',8)->nullable();
+            // $table->foreign('dni_user')->references('dni')->on('users');
             $table->float('price');
-            $table->date('date');
             $table->boolean('is_deliver')->nullable();
             $table->json('id_comidas');
             $id_comida = DB::connection()->getQueryGrammar()->wrap('id_comidas->id_comida');

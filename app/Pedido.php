@@ -13,7 +13,7 @@ class Pedido extends Model
      * @var array
      */
     protected $fillable = [
-        'dni_usuario','dni_cliente','price','date','is_deliver','id_comidas'
+        'dni_usuario','dni_cliente','price','is_deliver','id_comidas'
     ];
     protected $casts = [
         'id_comidas' => 'json',
@@ -24,6 +24,10 @@ class Pedido extends Model
     }
     public function clientes()
     {
-        return $this->hasMany(Cliente::class);
+        return $this->belongsTo(Cliente::class,'dni_cliente','dni');
+    }
+    public function comidas()
+    {
+       return $this->hasManyJson('App\Comida', 'id_comidas[]->id_comida');
     }
 }

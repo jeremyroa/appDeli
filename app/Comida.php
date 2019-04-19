@@ -17,6 +17,6 @@ class Comida extends Model
     ];
     public function pedidos()
     {
-       return $this->hasManyJson('App\Pedido', 'id_comidas->comidas[]->id_comida');
+        return $this->belongsToJson('App\Pedido', 'id_comidas->id_comida');
     }
 }

@@ -4,8 +4,8 @@
 //     a = 3;
 //     event.stopPropagation();
 // },false);
-let ban = false;
-function hola() {
+function hola(dni_cliente) {
+    let ban = false;
     event.stopPropagation();
     let a = '<div class="row justify-content-around align-items-center mt-2">';
     let total = 0;
@@ -17,16 +17,18 @@ function hola() {
             precio = precio.substr(0,precio.length - 1);
             total += Number(precio) * Number(document.getElementById('cant' + r ).value);
             a += `<div class="col-12 row">
-                <input type="hidden" name="id_comida" value="${r}">
-                <input readonly class="col-5 m-0 mb-1 border" name="name_comida" value="${document.getElementById('nam' + r ).textContent}">
-                <input readonly class="col-2 m-0 text-center border mb-1" name="cant_comida_pedido" value="${document.getElementById('cant' + r ).value}">
-                <input readonly class="col-4 text-right m-0 mb-1 border" name="price_comida" value="${document.getElementById('pr' + r ).textContent}">
+                <input type="hidden" name="id_comida[]" value="${r}">
+                <input readonly class="col-5 m-0 mb-1 border" name="name_comida[]" value="${document.getElementById('nam' + r ).textContent}">
+                <input readonly class="col-2 m-0 text-center border mb-1" name="cant_comida_pedido[]" value="${document.getElementById('cant' + r ).value}">
+                <input readonly class="col-4 text-right m-0 mb-1 border" name="price_comida[]" value="${document.getElementById('pr' + r ).textContent}">
                 </div>
                 `;
         }
     }
     a += "</div>";
-    a += `<div class="container row mt-2 pr-4 justify-content-end form-group">
+    a += `
+    <input type="hidden" name="dni_cliente" value="${dni_cliente}">
+    <div class="container row mt-2 pr-4 justify-content-end form-group">
         <label class="col-2 col-form-label m-0 pr-0 text-center" for="total_pedido">Total</label>
         <input readonly class="border col-3 mt-2 text-right" name="total_pedido" id="total_pedido" value="${total}$">
     </div>`;
@@ -35,4 +37,16 @@ function hola() {
     if (! ban ) document.getElementById("confirmar-pedido").innerHTML = "No has seleccionado ningun plato";
     else document.getElementById("confirmar-pedido").innerHTML = a;
 
+}
+
+function is_delivery(id) {
+    let is_deliver = document.getElementById(`is_deliver${id}`).checked;
+    let a = document.getElementById(`submit_env${id}`)
+    if (is_deliver) {
+        a.classList.remove('disabled');
+    }
+    else {
+        a.classList.add('disabled');
+
+    }
 }

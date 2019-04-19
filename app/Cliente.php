@@ -30,7 +30,7 @@ class Cliente extends Authenticatable
     ];
     public function pedidos()
     {
-        return $this->belongsTo(Pedido::class);
+        return $this->hasMany(Pedido::class,'dni_cliente','dni');
     }
     
 }
