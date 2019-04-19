@@ -35,7 +35,9 @@ class ComidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Comida::create($request->all());
+
+        return redirect()->intended("/home");
     }
 
     /**
@@ -78,8 +80,10 @@ class ComidaController extends Controller
      * @param  \App\Comida  $comida
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comida $comida)
+    public function destroy(Request $request,$id)
     {
-        //
+        Comida::where("id",$id)->first()->delete();
+
+        return redirect()->intended('/home');
     }
 }

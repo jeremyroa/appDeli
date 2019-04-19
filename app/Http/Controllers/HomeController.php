@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',['pedidos' => PedidoController::index()]);
+        return view('home',['pedidos' => PedidoController::index(),'comidas' => ComidaController::index()]);
     }
     public function admin()
     { 

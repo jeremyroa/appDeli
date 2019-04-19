@@ -32,7 +32,7 @@
                                                     @method('PUT')
                                                     <input type="hidden" name="dni_user" value="{{Auth::user()->dni}}">
 
-                                                    <div class="input-group-prepend">
+                                                    <div class="input-group-prepend ">
                                                         <span class="input-group-text">Entregado</span>
                                                         <span class="input-group-text">
                                                         <input type="checkbox" name="is_deliver" id="is_deliver{{$pedido->id}}" onclick="is_delivery({{$pedido->id}})">
@@ -130,8 +130,78 @@
                     </div>
                     <div class="col-12 mt-5">
                         <div class="row container">
-                            <div class="col-6">HOla</div>
-                            <div class="col-6">HOla</div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header text-center text-black-50 font-weight-bold">
+                                        Menú
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="row mb-2">
+                                            <div class="font-weight-bold col-2">
+                                                ID
+                                            </div>
+                                            <div class="font-weight-bold col-3">
+                                                Nombre
+                                            </div>
+                                            <div class="font-weight-bold col-3">
+                                                Categoria
+                                            </div>
+                                            <div class="font-weight-bold col-2">
+                                                Precio
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+                                        @foreach ($comidas as $comida)
+                                            <div class="row border-bottom py-1">
+                                                <div class="col-2">
+                                                    {{$comida->id}}
+                                                </div>
+                                                <div class="col-3">
+                                                    {{$comida->name}}
+                                                </div>
+                                                <div class="col-3">
+                                                    {{$comida->category}}
+                                                </div>
+                                                <div class="col-2">
+                                                    <p class="m-0 d-inline mr-2">{{$comida->price}}$</p>
+                                                </div>
+                                                <div class="col-2 d-flex align-items-center">
+                                                    <form method="POST"class="m-0" action="{{route('comida.destroy',$comida->id)}}">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <input type="submit" class="m-0 btn btn-danger" value="X">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header text-center text-black-50 font-weight-bold">
+                                        Nuevo Plato
+                                    </div>
+                                    <div class="card-body">
+                                            <form method="POST" action="{{url('comida/crear')}}">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="name">Nombre</label>
+                                                    <input type="text" class="form-control" id="name" name="name" placeholder="Ej: Pollo a la Canasta">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="category">Categoria</label>
+                                                    <input type="text" class="form-control" id="category" name="category" placeholder="Ej: Aves">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">Precio</label>
+                                                    <input type="number" class="form-control" id="price" name="price" placeholder="Ej: 12" min="0">
+                                                </div>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @else
